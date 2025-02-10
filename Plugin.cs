@@ -21,16 +21,16 @@ public class Plugin : Plugin<Config>
 
     public override void Disable()
     {
-        Instance = this;
+        UnregisterHandlers();
 
-        RegisterHandlers();
+        Instance = null;
     }
 
     public override void Enable()
     {
-        UnregisterHandlers();
+        Instance = this;
 
-        Instance = null;
+        RegisterHandlers();
     }
 
     private void RegisterHandlers()
