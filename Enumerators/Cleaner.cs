@@ -7,11 +7,13 @@ namespace AutoCleaner.Enumerators;
 
 internal static class Cleaner
 {
+    internal static int Cooldown { get; } = Plugin.Instance.Config.CleaningUpEach * 60;
+
     internal static IEnumerator<float> Processing()
     {
         while (!Round.IsRoundEnded)
         {
-            yield return Timing.WaitForSeconds(Plugin.Instance.Config.CleaningUpEach);
+            yield return Timing.WaitForSeconds(Cooldown);
 
             foreach (var pickup in Map.Pickups.Where(r => !Plugin.Instance.Config.OwnerCheck || (r.LastOwner != null)))
             {
